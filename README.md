@@ -84,6 +84,57 @@ RDE includes the following default templates:
 - **Angular Project Template:** Located in templates/angular/.
 - **Python Project Template:** Located in templates/python/.
 
+# Building and Publishing the Package to Artifactory
+
+This project includes a script to build and publish the package to a local Artifactory repository using JFrog CLI.
+## Prerequisites
+1) Install JFrog CLI:
+    ``` bash
+    curl -fL https://install-cli.jfrog.io | sh
+    ```
+    or download it from [ JFrog CLI].
+
+2) Configure JFrog CLI:
+   ``` bash
+   jfrog rt config
+   ```
+
+3) Ensure you have a local PyPI repository in Artifactory.
+
+## Running the Script
+Execute the script to build and upload the package:
+``` bash
+./build_and_publish.sh
+```
+
+### `build_and_publish.sh`
+``` bash
+#!/bin/bash
+
+# Variables
+PACKAGE_NAME="randerDataEngine"
+ARTIFACTORY_REPO="your-artifactory-repo"
+ARTIFACTORY_URL="https://your-artifactory-instance/artifactory"
+ARTIFACTORY_USER="your-username"
+ARTIFACTORY_API_KEY="your-api-key"
+
+# Clean previous builds
+rm -rf dist/
+
+# Build the package
+python setup.py sdist bdist_wheel
+
+# Publish to Artifactory
+jfrog rt upload \
+  --url $ARTIFACTORY_URL \
+  --user $ARTIFACTORY_USER \
+  --apikey $ARTIFACTORY_API_KEY \
+  "dist/*" \
+  "$ARTIFACTORY_REPO/$PACKAGE_NAME/"
+```
+
+
+
 # Module Structure
 ``` bash
 randerDataEngine/                  # Main package
@@ -108,6 +159,7 @@ randerDataEngine/                  # Main package
 │── __init__.py                      # Package initialization
 │── config.py                        # Configurations
 │── utils.py                         # Helper functions
+├── build_and_publish.sh             # Build and publish the package to your artifactory pypi repository
 │── README.md                        # Documentation
 │── setup.py                         # PyPI packaging
 │── tests/                           # Unit tests
