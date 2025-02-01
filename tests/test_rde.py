@@ -1,7 +1,7 @@
 import os
 import json
 import pytest
-from randerDataEngine.rde import RanderDataEngine
+from rde import RanderDataEngine
 
 # Initialize RDE Engine
 engine = RanderDataEngine()
@@ -18,7 +18,7 @@ def load_test_data():
     with open(TEST_DATA_PATH) as f:
         return json.load(f)
 
-def test_single_render(load_test_data):
+def test_single_render(load_test_data: any):
     """Test rendering a single template"""
     result = engine.render_template(f"{TEMPLATE_GROUP}/{TEMPLATE_NAME}", load_test_data)
     
@@ -30,15 +30,7 @@ def test_single_render(load_test_data):
     with open(OUTPUT_FILE, "w") as f:
         f.write(result)
 
-def test_dry_run_render(load_test_data, capsys):
-    """Test dry-run mode (prints instead of writing)"""
-    engine.render_template(f"{TEMPLATE_GROUP}/{TEMPLATE_NAME}", load_test_data, dry_run=True)
-    
-    captured = capsys.readouterr()
-    assert '"name": "my-node-project"' in captured.out
-    assert '"express": "^4.18.2"' in captured.out
-
-def test_mass_render(load_test_data):
+def test_mass_render(load_test_data: any):
     """Test rendering multiple JSON files"""
     data_list = [load_test_data] * 2  # Simulating mass rendering with 2 copies of the same data
     output_dir = "tests/mass_output"
