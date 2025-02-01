@@ -8,10 +8,12 @@ ARTIFACTORY_USER="your-username"  # Replace with your Artifactory username
 ARTIFACTORY_API_KEY="your-api-key"  # Replace with your Artifactory API key
 
 # Clean previous builds
-rm -rf dist/
+if [ -d "dist" ]; then
+  rm -rf dist/
+fi
 
 # Build the package
-python setup.py sdist bdist_wheel
+python3 setup.py sdist bdist_wheel
 
 # Publish to Artifactory
 jfrog rt upload \
