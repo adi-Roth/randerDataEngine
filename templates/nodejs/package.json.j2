@@ -1,0 +1,20 @@
+{
+  "name": "{{ project_name }}",
+  "version": "{{ version }}",
+  "description": "{{ description }}",
+  "main": "{{ main_file }}",
+  "scripts": {
+    "test": "jest --coverage",
+    "lint": "eslint .",
+    "start": "node {{ main_file }}"
+  },
+  "dependencies": {
+    {% for package, version in dependencies.items() %}
+    "{{ package }}": "{{ version }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  }
+}

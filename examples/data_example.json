@@ -1,0 +1,11 @@
+{
+    "project_name": "my-node-project",
+    "version": "1.0.0",
+    "description": "A sample Node.js project",
+    "main_file": "index.js",
+    "dependencies": {
+      "express": "^4.18.2",
+      "cors": "^2.8.5"
+    }
+  }
+  
