@@ -92,7 +92,7 @@ This project includes a script to build and publish the package to a local Artif
     ``` bash
     curl -fL https://install-cli.jfrog.io | sh
     ```
-    or download it from [ JFrog CLI].
+    or download it from [https://jfrog.com/getcli/ JFrog CLI].
 
 2) Configure JFrog CLI:
    ``` bash
